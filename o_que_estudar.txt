@@ -1,0 +1,21 @@
+Para manter este código-base é necessário estudar as seguintes tecnologias:
+
+JavaScript
+
+Node.js
+
+Servidor Express
+
+Protocolo HTTP
+
+API REST
+
+SQL
+
+Postgres
+
+Cors
+
+DotEnv
+
+Nodemon
