@@ -1,6 +1,6 @@
 import client from "../6-db/db.js";
 
-const patternDAO =  {
+const dao =  {
 
   readAllNotes: async () => {
     const result = await client.query('select * from public.notas')
@@ -24,4 +24,4 @@ const patternDAO =  {
     [param])
 }
 
-export default patternDAO
+export default dao

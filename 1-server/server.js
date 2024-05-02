@@ -1,7 +1,7 @@
 import express from "express";
 
 import cors from "cors";
-import patternRouter from "../2-router/patternRouter.js";
+import router from "../2-router/router.js";
 
 const app = express();
 
@@ -23,7 +23,7 @@ const server = () => {
 
   app.use(express.json({ limit: "1mb" }));
 
-  app.use(patternRouter())
+  app.use(router())
 
 };
 
