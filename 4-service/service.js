@@ -9,8 +9,8 @@ const service = {
     return result
   },
 
-  readAllNotes: async () => {
-    const result = await dao.readAllNotes()
+  readAllNotes: async (iduser) => {
+    const result = await dao.readAllNotes(iduser)
     return result
   },
 
@@ -33,8 +33,8 @@ const service = {
     return msg
   },
 
-  remove: async (param) => {
-    const result = await dao.delete(param)
+  remove: async (idnota) => {
+    const result = await dao.delete(idnota)
     const msg = {message: `${result.rowCount} patterns data deleted`}
     return msg 
   },

@@ -4,8 +4,10 @@ const dao = {
 
   //métodos notas
 
-  readAllNotes: async () => {
-    const result = await client.query('select * from public.notas')
+  readAllNotes: async (iduser) => {
+    const result = await client.query('select * from public.notas where iduser = $1',
+      [iduser])
+
     return result.rows
   },
 
@@ -15,15 +17,17 @@ const dao = {
     return result.rows[0]
   },
 
-  create: (object) =>
-    client.query(`insert into public.notas (titulo, nota) values ($1, $2)`,
-      [object.titulo, object.nota]),
+  create: async (object) => 
+    await client.query(`insert into public.notas (titulo, nota, iduser) values ($1, $2, $3)`,
+      [object.titulo, object.nota, object.iduser]),
 
-  update: (param, object) => client.query(`update public.notas set titulo = $1, nota = $2 where id = $3`,
-    [object.titulo, object.nota, param]),
+  update: async (param, object) => {
+    return await client.query(`update public.notas set titulo = $1, nota = $2, iduser = $3 where id = $4`,
+    [object.titulo, object.nota, object.iduser, param])
+  },
 
-  delete: (param) => client.query(`delete from public.notas where id = $1`,
-    [param]),
+  delete: async (idnota) => await client.query(`delete from public.notas where id = $1`,
+    [idnota]),
 
 
   //métodos usuários
@@ -34,16 +38,18 @@ const dao = {
     return result.rows[0]
   },
 
-  createUser: (object) =>
-    client.query(`insert into public.usuarios (nome, email, senha) values ($1, $2, $3)`,
+  createUser: async (object) =>
+    await client.query(`insert into public.usuarios (nome, email, senha) values ($1, $2, $3)`,
       [object.nome, object.email, object.senha]),
 
-  deleteUser: (param) => client.query(`delete from public.usuario where id = $1`,
+  deleteUser: async (param) => await client.query(`delete from public.usuario where id = $1`,
     [param]),
 
-  checkLogin: (object) =>
-    client.query(`select id, nome from public.usuarios where email = $1 and senha = $2`,
+  checkLogin: async (object) => {
+    const result = await client.query(`select id, nome, email from public.usuarios where email = $1 and senha = $2`,
       [object.email, object.senha])
+    return result.rows[0]
+  }
 }
 
 export default dao
