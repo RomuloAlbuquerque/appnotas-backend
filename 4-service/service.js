@@ -1,6 +1,9 @@
 import dao from "../5-dao/dao.js";
 
 const service = {
+
+  //métodos notas
+  
   read: () => {
     const result = "Olá Rômulo,\n você está usando nosso codebase básico \n que contém uma estrutura de server, rotas, controller, service, dao; \n e utilizando servidor express"
     return result
@@ -34,7 +37,32 @@ const service = {
     const result = await dao.delete(param)
     const msg = {message: `${result.rowCount} patterns data deleted`}
     return msg 
-  }
+  },
+
+
+
+  //métodos usuários
+
+  readUserByParam: async (param) => {
+    let result = await dao.readUserByParam(param)
+    console.log(result)
+    // return {nome: result.nome, email: result.email}
+  },
+
+  createUser: async (object) => {
+    const result = await dao.createUser(object)
+    const msg = {message: ""}
+    result.rowCount > 0 ? msg.message = "data entered successfully" : msg.message = "Error persisting data"
+    return msg
+  },
+
+  removeUser: async (param) => {
+    const result = await dao.deleteUser(param)
+    const msg = {message: `${result.rowCount} patterns data deleted`}
+    return msg 
+  },
+
+  checkLogin: async (object) => await dao.checkLogin(object)
 }
 
 export default service;
