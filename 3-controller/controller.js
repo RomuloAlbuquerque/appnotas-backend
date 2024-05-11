@@ -4,7 +4,7 @@ const controller = {
 
   //métodos notas
   read: (req, res) => res.json(service.read()),
-  readAllNotes: async (req, res) => res.json(await service.readAllNotes(req.params.iduser)),
+  readAllNotes: async (req, res) => res.json(await service.readAllNotes(req.headers['x-access-token'])),
   readByParam: async (req, res) => res.json(await service.readByParam(req.params.param)),
   create: async (req, res) => res.json(await service.create(req.body)),
   update: async (req, res) => res.json(await service.update(req.params.param, req.body)),

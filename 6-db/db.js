@@ -13,6 +13,5 @@ const client = new Client({
 })
 
 client.connect()
-console.log(client.connectionParameters)
 
 export default client
