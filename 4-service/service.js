@@ -13,9 +13,10 @@ const service = {
   readAllNotes: async (token) => {
     const result = security.authorize(token)
     if (result.auth == false) {
-      return result.message
+      return result
     } else {
-      return await dao.readAllNotes(result.id)
+      result.list = await dao.readAllNotes(result.id)
+      return result
     }
   },
 
@@ -54,6 +55,7 @@ const service = {
   },
 
   createUser: async (object) => {
+    object.senha = await security.encrypt(object.senha)
     const result = await dao.createUser(object)
     const msg = { message: "" }
     result.rowCount > 0 ? msg.message = "data entered successfully" : msg.message = "Error persisting data"
@@ -67,12 +69,11 @@ const service = {
   },
 
   checkLogin: async (object) => {
-    const user = await dao.checkLogin(object)
+    const list = await dao.readAllUsers()
+    const user = list.filter(x => x.email == object.email && security.check(object.senha, x.senha))[0]
     const result = security.authenticate(user)
     return result
   }
-
-
 }
 
 export default service;

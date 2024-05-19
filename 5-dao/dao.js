@@ -32,6 +32,8 @@ const dao = {
 
   //métodos usuários
 
+  readAllUsers: async () => (await client.query('select * from public.usuarios')).rows,
+
   readUserByParam: async (param) => {
     const result = await client.query(`select * from public.usuarios where id = $1`,
       [param])
@@ -42,7 +44,7 @@ const dao = {
     await client.query(`insert into public.usuarios (nome, email, senha) values ($1, $2, $3)`,
       [object.nome, object.email, object.senha]),
 
-  deleteUser: async (param) => await client.query(`delete from public.usuario where id = $1`,
+  deleteUser: async (param) => await client.query(`delete from public.usuarios where id = $1`,
     [param]),
 
   checkLogin: async (object) => {
