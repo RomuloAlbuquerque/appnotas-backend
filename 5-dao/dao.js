@@ -41,10 +41,10 @@ const dao = {
   },
 
   createUser: async (object) =>
-    await client.query(`insert into public.usuarios (nome, email, senha) values ($1, $2, $3)`,
+    await client.query(`insert into public.usuarios (nome, email, senha) select $1, $2, $3 where not exists (select email from public.usuarios where email = $2)`,
       [object.nome, object.email, object.senha]),
 
-  deleteUser: async (param) => await client.query(`delete from public.usuarios where id = $1`,
+  deleteUser: async (param) => await client.query(`delete from public.usuarios where nome = $1`,
     [param]),
 
   checkLogin: async (object) => {

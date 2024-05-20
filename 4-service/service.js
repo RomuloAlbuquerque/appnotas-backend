@@ -59,7 +59,7 @@ const service = {
     const result = await dao.createUser(object)
     const msg = { message: "" }
     result.rowCount > 0 ? msg.message = "data entered successfully" : msg.message = "Error persisting data"
-    return msg
+    return msg.message
   },
 
   removeUser: async (param) => {
