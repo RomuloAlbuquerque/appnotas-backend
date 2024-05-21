@@ -44,10 +44,11 @@ const security = {
         const match = await bcrypt.compare(pass, hashed)
 
         if (match) {
-            console.log(match)
             console.log('Granted!')
+            return match
         } else {
             console.log('Access Denied')
+            return match
         }
     }
 }

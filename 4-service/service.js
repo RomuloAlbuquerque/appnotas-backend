@@ -70,9 +70,8 @@ const service = {
 
   checkLogin: async (object) => {
     const list = await dao.readAllUsers()
-    const user = list.filter(x => x.email == object.email && security.check(object.senha, x.senha))[0]
-    const result = security.authenticate(user)
-    return result
+    const user = list.filter(x => x.email == object.email)[0]
+    return user ? await security.check(object.senha, user.senha) ? security.authenticate({id: user.id, nome: user.nome, email: user.email}) : 'senha inválida' : "email inválido"
   }
 }
 
