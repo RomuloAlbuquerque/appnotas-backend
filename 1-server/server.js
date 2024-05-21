@@ -5,7 +5,7 @@ import router from "../2-router/router.js";
 const app = express();
 const server = () => {
 
-  const port = app.set("port", process.env.LOCAL_PORT || 3001).get("port")
+  const port = app.set("port", process.env.PORT || 3001).get("port")
 
   app.listen(port, "0.0.0.0", () => console.log("Rodando na porta ", port))
 
